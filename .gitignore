@@ -1,0 +1,13 @@
+node_modules
+.next
+out
+build
+dist
+.env*
+!.env.example
+*.log
+.DS_Store
+sheet_info.html
+.claude/
+api_test.json
+sheet_data.csv

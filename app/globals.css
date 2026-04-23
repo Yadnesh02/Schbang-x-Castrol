@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: #dde3ee;
+  color: #0f172a;
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Thin scrollbars */
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Layered card — subtle gradient for depth */
+.card {
+  @apply rounded-2xl shadow-card border border-surface-border;
+  background: linear-gradient(180deg, #f4f7fc 0%, #e8edf5 100%);
+}
+
+/* Inner panel inside cards — where charts / tables / dense content sit */
+.panel {
+  @apply rounded-xl border border-surface-border/70;
+  background: #fbfcfe;
+}
+
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  @apply shadow-hover;
+}
+
+/* Honeygain-inspired soft active nav */
+.nav-active {
+  @apply bg-brand-50 text-brand-700;
+}
+.nav-active svg {
+  @apply text-brand-600;
+}
