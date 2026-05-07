@@ -3,7 +3,8 @@ import type { DashboardData, Post, RawRow } from "./types";
 import { toPost } from "./transforms";
 
 export const SHEET_ID = "1tFxOq7j1jDjV696OWLefZhNCSW76aFZ9SMjFsiVblxQ";
-export const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
+export const SHEET_NAME = "Merger_data";
+export const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
 
 export async function fetchSheetCsv(): Promise<string> {
   const res = await fetch(SHEET_CSV_URL, {

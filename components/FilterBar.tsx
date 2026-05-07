@@ -18,12 +18,13 @@ export function FilterBar() {
     (f.dateFrom || f.dateTo ? 1 : 0);
 
   return (
-    <div className="bg-white border-b border-surface-border px-4 md:px-8 py-3 flex items-center gap-2 md:gap-3 overflow-x-auto">
-      <div className="shrink-0 flex items-center gap-1.5 text-ink-500">
+    <div className="bg-white border-b border-surface-border px-3 sm:px-4 md:px-6 lg:px-8 py-3 flex items-center gap-2 md:gap-3 overflow-x-auto">
+      <div
+        className="shrink-0 grid place-items-center w-8 h-8 rounded-lg text-ink-500 bg-surface-muted"
+        aria-label="Filters"
+        title="Filters"
+      >
         <Filter className="w-4 h-4" />
-        <span className="text-[11.5px] uppercase tracking-wider font-semibold hidden sm:inline">
-          Filters
-        </span>
       </div>
 
       <div className="shrink-0 h-6 w-px bg-surface-border mx-1 hidden sm:block" />

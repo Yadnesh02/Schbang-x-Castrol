@@ -263,7 +263,7 @@ export default function ContentTrendsPage() {
                 />
               </div>
               <div className="overflow-x-auto">
-                <table className="w-full text-[13px]">
+                <table className="w-full text-[13px] min-w-[820px]">
                   <thead className="bg-surface-muted text-[11px] uppercase tracking-wider text-ink-500">
                     <tr>
                       <th className="text-left px-5 py-2 font-semibold">#</th>

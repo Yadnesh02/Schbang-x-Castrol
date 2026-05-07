@@ -136,7 +136,7 @@ export default function BrandIntegrationPage() {
 
         return (
           <div className="space-y-6">
-            <div className="grid md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
               <KPICard
                 label="Avg Brand Attention"
                 value={formatPercent(avgAttention, 1)}
@@ -189,7 +189,8 @@ export default function BrandIntegrationPage() {
                 <div className="p-5 pb-3">
                   <SectionHeader title="Best brand-integration moments" subtitle="Highest retention during brand mention." />
                 </div>
-                <table className="w-full text-[13px]">
+                <div className="overflow-x-auto">
+                <table className="w-full text-[13px] min-w-[480px]">
                   <thead className="bg-surface-muted text-[11px] uppercase tracking-wider text-ink-500">
                     <tr>
                       <th className="text-left px-5 py-2 font-semibold">Creator</th>
@@ -211,12 +212,14 @@ export default function BrandIntegrationPage() {
                     ))}
                   </tbody>
                 </table>
+                </div>
               </Card>
               <Card padded={false}>
                 <div className="p-5 pb-3">
                   <SectionHeader title="Ad-dilution risks" subtitle="Lowest brand-moment retention — optimize integration." />
                 </div>
-                <table className="w-full text-[13px]">
+                <div className="overflow-x-auto">
+                <table className="w-full text-[13px] min-w-[480px]">
                   <thead className="bg-surface-muted text-[11px] uppercase tracking-wider text-ink-500">
                     <tr>
                       <th className="text-left px-5 py-2 font-semibold">Creator</th>
@@ -238,6 +241,7 @@ export default function BrandIntegrationPage() {
                     ))}
                   </tbody>
                 </table>
+                </div>
               </Card>
             </div>
           </div>

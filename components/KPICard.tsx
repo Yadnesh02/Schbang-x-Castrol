@@ -22,19 +22,19 @@ const accentMap = {
 
 export function KPICard({ label, value, sublabel, Icon, accent = "brand", trend }: KPICardProps) {
   return (
-    <div className="card hover-lift p-5 flex flex-col gap-3">
-      <div className="flex items-start justify-between">
-        <span className="text-[12px] uppercase tracking-wider text-ink-500 font-semibold">
+    <div className="card hover-lift p-3.5 sm:p-5 flex flex-col gap-2 sm:gap-3">
+      <div className="flex items-start justify-between gap-2">
+        <span className="text-[10.5px] sm:text-[12px] uppercase tracking-wider text-ink-500 font-semibold leading-tight">
           {label}
         </span>
         {Icon ? (
-          <div className={cn("w-9 h-9 rounded-xl grid place-items-center", accentMap[accent])}>
-            <Icon className="w-4 h-4" />
+          <div className={cn("w-8 h-8 sm:w-9 sm:h-9 rounded-xl grid place-items-center shrink-0", accentMap[accent])}>
+            <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </div>
         ) : null}
       </div>
-      <div className="flex items-baseline gap-2">
-        <div className="text-[26px] font-bold tracking-tight text-ink-900">{value}</div>
+      <div className="flex items-baseline gap-2 flex-wrap">
+        <div className="text-[20px] sm:text-[26px] font-bold tracking-tight text-ink-900">{value}</div>
         {trend ? (
           <span
             className={cn(
@@ -49,7 +49,7 @@ export function KPICard({ label, value, sublabel, Icon, accent = "brand", trend 
           </span>
         ) : null}
       </div>
-      {sublabel ? <div className="text-[12px] text-ink-500">{sublabel}</div> : null}
+      {sublabel ? <div className="text-[10.5px] sm:text-[12px] text-ink-500 leading-snug">{sublabel}</div> : null}
     </div>
   );
 }

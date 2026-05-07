@@ -132,7 +132,7 @@ function LeaderboardView({ posts }: { posts: Post[] }) {
           <SectionHeader title="Full leaderboard" subtitle="Click any column header to sort." />
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-[13px]">
+          <table className="w-full text-[13px] min-w-[760px]">
             <thead>
               <tr className="text-[11px] uppercase tracking-wider text-ink-500 bg-surface-muted">
                 <th className="text-left font-semibold px-5 py-3">#</th>

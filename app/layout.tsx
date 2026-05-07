@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Sidebar } from "@/components/Sidebar";
@@ -9,6 +9,14 @@ export const metadata: Metadata = {
   title: "Castrol x Schbang | Insights Dashboard",
   description:
     "Live influencer performance, brand integration & campaign analytics dashboard for Castrol x Schbang.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+  themeColor: "#1d72f0",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -33,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="flex-1 flex flex-col min-w-0 w-full">
               <TopBar />
               <FilterBar />
-              <main className="px-4 md:px-6 lg:px-8 pb-16 pt-4 flex-1 w-full max-w-full overflow-x-hidden">
+              <main className="px-3 sm:px-4 md:px-6 lg:px-8 pb-12 sm:pb-16 pt-3 sm:pt-4 flex-1 w-full max-w-full overflow-x-hidden">
                 {children}
               </main>
             </div>

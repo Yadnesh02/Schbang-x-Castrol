@@ -13,7 +13,7 @@ export function Card({ children, className, padded = true }: CardProps) {
       className={cn(
         "rounded-2xl shadow-card border border-surface-border",
         "bg-gradient-to-b from-[#f4f7fc] to-[#e8edf5]",
-        padded && "p-5",
+        padded && "p-3.5 sm:p-5",
         className
       )}
     >

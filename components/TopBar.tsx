@@ -22,30 +22,31 @@ export function TopBar() {
   }, [dataUpdatedAt]);
 
   return (
-    <header className="bg-white border-b border-surface-border px-4 md:px-8 py-3.5 flex items-center justify-between gap-3 sticky top-0 z-20">
-      <div className="flex items-center gap-3 min-w-0">
+    <header className="bg-white border-b border-surface-border px-3 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-3.5 flex items-center justify-between gap-2 sm:gap-3 sticky top-0 z-20">
+      <div className="flex items-center gap-2 sm:gap-3 min-w-0">
         <button
           type="button"
           onClick={toggleSidebar}
-          className="md:hidden p-2 rounded-lg hover:bg-surface-muted text-ink-700 shrink-0"
+          className="lg:hidden p-2 rounded-lg hover:bg-surface-muted text-ink-700 shrink-0"
           aria-label="Open navigation"
         >
           <Menu className="w-5 h-5" />
         </button>
         <div className="min-w-0">
-          <h1 className="text-[17px] md:text-[20px] font-bold tracking-tight truncate">
+          <h1 className="text-[15px] sm:text-[17px] md:text-[20px] font-bold tracking-tight truncate">
             Castrol x Schbang
           </h1>
-          <p className="text-[11.5px] md:text-[12.5px] text-ink-500 truncate">
+          <p className="text-[10.5px] sm:text-[11.5px] md:text-[12.5px] text-ink-500 truncate">
             {data ? (
               <>
                 <span className="hidden sm:inline">
                   {data.posts.length.toLocaleString()} posts · {data.creators.length} creators ·
                 </span>{" "}
-                live from Google Sheets
+                <span className="hidden xs:inline sm:inline">live from Google Sheets</span>
+                <span className="sm:hidden">live data</span>
               </>
             ) : (
-              "Loading dataset…"
+              "Loading…"
             )}
           </p>
         </div>

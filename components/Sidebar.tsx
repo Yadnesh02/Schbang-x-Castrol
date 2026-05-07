@@ -65,16 +65,16 @@ export function Sidebar() {
       {sidebarOpen ? (
         <div
           onClick={closeMobile}
-          className="fixed inset-0 bg-black/40 z-40 md:hidden"
+          className="fixed inset-0 bg-black/40 z-40 lg:hidden"
           aria-hidden
         />
       ) : null}
 
       <aside
         className={cn(
-          "w-[260px] shrink-0 bg-white border-r border-surface-border min-h-screen flex flex-col",
-          "fixed md:sticky top-0 left-0 z-50 md:z-0 transition-transform duration-200",
-          sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+          "w-[280px] sm:w-[260px] shrink-0 bg-white border-r border-surface-border min-h-screen flex flex-col",
+          "fixed lg:sticky top-0 left-0 z-50 lg:z-0 transition-transform duration-200",
+          sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
         <div className="px-5 pt-6 pb-5 border-b border-surface-border">
@@ -99,7 +99,7 @@ export function Sidebar() {
             <button
               type="button"
               onClick={closeMobile}
-              className="md:hidden p-1.5 rounded-lg hover:bg-surface-muted text-ink-500"
+              className="lg:hidden p-1.5 rounded-lg hover:bg-surface-muted text-ink-500"
               aria-label="Close navigation"
             >
               <X className="w-5 h-5" />

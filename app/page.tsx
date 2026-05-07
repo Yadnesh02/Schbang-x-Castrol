@@ -4,7 +4,6 @@ import { DataBoundary } from "@/components/DataBoundary";
 import { KPICard } from "@/components/KPICard";
 import { Card } from "@/components/Card";
 import { SectionHeader } from "@/components/SectionHeader";
-import { InsightCallout } from "@/components/InsightCallout";
 import { EChart } from "@/components/charts/EChart";
 import { CommercialPanel } from "@/components/CommercialPanel";
 import {
@@ -15,7 +14,6 @@ import {
   formatCompact,
   formatPercent,
 } from "@/lib/metrics";
-import { topInsightCallouts } from "@/lib/insights";
 import {
   Eye,
   Users,
@@ -33,7 +31,6 @@ export default function Page() {
         const monthly = aggregateByMonth(posts);
         const formats = aggregateByFormat(posts).sort((a, b) => b.reach - a.reach);
         const campaigns = aggregateByCampaign(posts).sort((a, b) => b.reach - a.reach);
-        const callouts = topInsightCallouts(posts);
 
         const trendOption = {
           tooltip: {
@@ -235,18 +232,6 @@ export default function Page() {
               />
             </div>
 
-            {callouts.length ? (
-              <div className="grid md:grid-cols-3 gap-3">
-                {callouts.slice(0, 3).map((text, i) => (
-                  <InsightCallout
-                    key={i}
-                    text={text}
-                    kind={i === 0 ? "success" : i === 1 ? "info" : "warn"}
-                  />
-                ))}
-              </div>
-            ) : null}
-
             <Card>
               <SectionHeader
                 title="Performance over time"
@@ -272,7 +257,7 @@ export default function Page() {
               </Card>
             </div>
 
-            <div className="grid md:grid-cols-4 gap-3 text-[12px]">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[12px]">
               <Card className="text-center">
                 <div className="text-ink-500 uppercase tracking-wider text-[10px] font-semibold">Avg Skip Rate</div>
                 <div className="text-[22px] font-bold mt-1">{formatPercent(kpis.avgSkipRate, 0)}</div>
