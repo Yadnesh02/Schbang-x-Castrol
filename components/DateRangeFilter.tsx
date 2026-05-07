@@ -48,15 +48,35 @@ interface Preset {
   range: () => [Date, Date];
 }
 
-function buildPresets(max: Date): Preset[] {
-  const today = endOfDay(max);
+function buildPresets(min: Date | null, max: Date | null): Preset[] {
+  const today = endOfDay(new Date());
+  const clamp = (d: Date): Date => {
+    if (min && isBefore(d, startOfDay(min))) return startOfDay(min);
+    if (max && isAfter(d, endOfDay(max))) return endOfDay(max);
+    return d;
+  };
+  const range = (start: Date, end: Date): [Date, Date] => [clamp(start), clamp(end)];
   return [
-    { label: "Last 7 days", range: () => [startOfDay(subDays(today, 6)), today] },
-    { label: "Last 30 days", range: () => [startOfDay(subDays(today, 29)), today] },
-    { label: "Last 90 days", range: () => [startOfDay(subDays(today, 89)), today] },
-    { label: "This month", range: () => [startOfMonth(today), today] },
-    { label: "Year to date", range: () => [startOfYear(today), today] },
+    { label: "Last 7 days", range: () => range(startOfDay(subDays(today, 6)), today) },
+    { label: "Last 30 days", range: () => range(startOfDay(subDays(today, 29)), today) },
+    { label: "Last 90 days", range: () => range(startOfDay(subDays(today, 89)), today) },
+    { label: "This month", range: () => range(startOfMonth(today), today) },
+    { label: "Year to date", range: () => range(startOfYear(today), today) },
   ];
+}
+
+function defaultViewMonth(
+  from: Date | null,
+  to: Date | null,
+  min: Date | null | undefined,
+  max: Date | null | undefined
+): Date {
+  if (from) return startOfMonth(from);
+  if (to) return startOfMonth(to);
+  const today = new Date();
+  if (max && isAfter(today, endOfDay(max))) return startOfMonth(max);
+  if (min && isBefore(today, startOfDay(min))) return startOfMonth(min);
+  return startOfMonth(today);
 }
 
 export function DateRangeFilter({ from, to, min, max, onChange }: DateRangeFilterProps) {
@@ -66,8 +86,8 @@ export function DateRangeFilter({ from, to, min, max, onChange }: DateRangeFilte
   const [draftFrom, setDraftFrom] = useState<Date | null>(from);
   const [draftTo, setDraftTo] = useState<Date | null>(to);
   const [hover, setHover] = useState<Date | null>(null);
-  const [viewMonth, setViewMonth] = useState<Date>(
-    () => startOfMonth(from ?? to ?? max ?? new Date())
+  const [viewMonth, setViewMonth] = useState<Date>(() =>
+    defaultViewMonth(from, to, min, max)
   );
 
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -79,9 +99,9 @@ export function DateRangeFilter({ from, to, min, max, onChange }: DateRangeFilte
     if (open) {
       setDraftFrom(from);
       setDraftTo(to);
-      setViewMonth(startOfMonth(from ?? to ?? max ?? new Date()));
+      setViewMonth(defaultViewMonth(from, to, min, max));
     }
-  }, [open, from, to, max]);
+  }, [open, from, to, min, max]);
 
   useIsoLayoutEffect(() => {
     if (!open) return;
@@ -130,7 +150,7 @@ export function DateRangeFilter({ from, to, min, max, onChange }: DateRangeFilte
     return eachDayOfInterval({ start, end });
   }, [viewMonth]);
 
-  const presets = useMemo(() => buildPresets(max ?? new Date()), [max]);
+  const presets = useMemo(() => buildPresets(min ?? null, max ?? null), [min, max]);
 
   const isDisabled = (d: Date) => {
     if (min && isBefore(d, startOfDay(min))) return true;
