@@ -62,6 +62,16 @@ export function parseNumber(value: unknown): number {
   return Number.isFinite(n) ? n : 0;
 }
 
+export function parseOptionalNumber(value: unknown): number | null {
+  if (value == null) return null;
+  const raw = String(value).trim();
+  if (!raw || raw.toUpperCase() === "N/A") return null;
+  const s = raw.replace(/[^0-9.-]/g, "");
+  if (!s) return null;
+  const n = Number(s);
+  return Number.isFinite(n) ? n : null;
+}
+
 export function parsePercent(value: unknown): number | null {
   if (value == null) return null;
   const s = String(value).trim();
@@ -135,5 +145,11 @@ export function toPost(raw: RawRow): Post {
     ),
     engagementRatePct: parsePercent(raw["Engagement Rate"]),
     insight: normalizeInsight(raw.Insights),
+    cpu: parseOptionalNumber(raw.CPU),
+    mediaValue: parseOptionalNumber(raw.MV),
+    premiumPct: parsePercent(raw.Premium),
+    mediaValueWithPremium: parseOptionalNumber(raw["MV with Premium"]),
+    perDeliverableCost: parseOptionalNumber(raw["Per Deliverable Cost"]),
+    roiPct: parsePercent(raw["ROI%"]),
   };
 }

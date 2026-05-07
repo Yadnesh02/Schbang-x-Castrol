@@ -35,6 +35,12 @@ export interface RawRow {
   "Percentage of People Watching During Brand Integration": string;
   "Engagement Rate": string;
   Insights: string;
+  CPU?: string;
+  MV?: string;
+  Premium?: string;
+  "MV with Premium"?: string;
+  "Per Deliverable Cost"?: string;
+  "ROI%"?: string;
 }
 
 export interface Post {
@@ -54,6 +60,12 @@ export interface Post {
   brandIntegrationAttentionPct: number | null;
   engagementRatePct: number | null;
   insight: InsightLabel | string;
+  cpu: number | null;
+  mediaValue: number | null;
+  premiumPct: number | null;
+  mediaValueWithPremium: number | null;
+  perDeliverableCost: number | null;
+  roiPct: number | null;
 }
 
 export interface DashboardData {

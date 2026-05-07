@@ -20,6 +20,13 @@ export interface KPIs {
   avgBrandAttention: number;
   avgSkipRate: number;
   creators: number;
+  totalSpend: number;
+  totalMediaValue: number;
+  totalMediaValueWithPremium: number;
+  avgCpu: number;
+  avgPremiumPct: number;
+  roiPct: number;
+  costedDeliverables: number;
 }
 
 export function computeKPIs(posts: Post[]): KPIs {
@@ -32,6 +39,11 @@ export function computeKPIs(posts: Post[]): KPIs {
   let attCount = 0;
   let skipSum = 0;
   let skipCount = 0;
+  let totalSpend = 0;
+  let totalMV = 0;
+  let totalMVPremium = 0;
+  let viewsForCpu = 0;
+  let costedDeliverables = 0;
   const creatorSet = new Set<string>();
   for (const p of posts) {
     views += p.views;
@@ -49,6 +61,15 @@ export function computeKPIs(posts: Post[]): KPIs {
       skipSum += p.skipRatePct;
       skipCount++;
     }
+    if (p.perDeliverableCost != null && p.perDeliverableCost > 0) {
+      totalSpend += p.perDeliverableCost;
+      costedDeliverables += 1;
+    }
+    if (p.mediaValue != null) {
+      totalMV += p.mediaValue;
+      if (p.cpu != null && p.cpu > 0) viewsForCpu += p.views;
+    }
+    if (p.mediaValueWithPremium != null) totalMVPremium += p.mediaValueWithPremium;
     creatorSet.add(p.creator);
   }
   return {
@@ -60,6 +81,13 @@ export function computeKPIs(posts: Post[]): KPIs {
     avgBrandAttention: attCount ? attSum / attCount : 0,
     avgSkipRate: skipCount ? skipSum / skipCount : 0,
     creators: creatorSet.size,
+    totalSpend,
+    totalMediaValue: totalMV,
+    totalMediaValueWithPremium: totalMVPremium,
+    avgCpu: viewsForCpu > 0 ? totalMV / viewsForCpu : 0,
+    avgPremiumPct: totalMV > 0 ? (totalMVPremium / totalMV - 1) * 100 : 0,
+    roiPct: totalSpend > 0 ? (totalMVPremium / totalSpend) * 100 : 0,
+    costedDeliverables,
   };
 }
 
@@ -354,4 +382,22 @@ export function formatCompact(n: number): string {
 export function formatPercent(n: number | null | undefined, digits = 1): string {
   if (n == null || !Number.isFinite(n)) return "—";
   return `${n.toFixed(digits)}%`;
+}
+
+export function formatINR(n: number | null | undefined, opts: { compact?: boolean } = {}): string {
+  if (n == null || !Number.isFinite(n)) return "—";
+  const abs = Math.abs(n);
+  if (opts.compact ?? true) {
+    if (abs >= 1_00_00_000) return `₹${(n / 1_00_00_000).toFixed(2)} Cr`;
+    if (abs >= 1_00_000) return `₹${(n / 1_00_000).toFixed(2)} L`;
+    if (abs >= 1_000) return `₹${(n / 1_000).toFixed(1)}K`;
+    return `₹${Math.round(n).toLocaleString("en-IN")}`;
+  }
+  return `₹${Math.round(n).toLocaleString("en-IN")}`;
+}
+
+export function formatINRPrecise(n: number | null | undefined): string {
+  if (n == null || !Number.isFinite(n)) return "—";
+  const v = n < 1 ? n.toFixed(2) : Math.round(n).toLocaleString("en-IN");
+  return `₹${v}`;
 }

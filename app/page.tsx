@@ -6,6 +6,7 @@ import { Card } from "@/components/Card";
 import { SectionHeader } from "@/components/SectionHeader";
 import { InsightCallout } from "@/components/InsightCallout";
 import { EChart } from "@/components/charts/EChart";
+import { CommercialPanel } from "@/components/CommercialPanel";
 import {
   aggregateByCampaign,
   aggregateByFormat,
@@ -187,6 +188,8 @@ export default function Page() {
 
         return (
           <div className="space-y-6">
+            <CommercialPanel kpis={kpis} />
+
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
               <KPICard
                 label="Total Reach"
