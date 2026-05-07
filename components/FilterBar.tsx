@@ -3,6 +3,7 @@
 import { useFilters } from "@/store/filters";
 import { useSheetData } from "@/hooks/useSheetData";
 import { FilterDropdown } from "./FilterDropdown";
+import { DateRangeFilter } from "./DateRangeFilter";
 import { Filter, X } from "lucide-react";
 
 export function FilterBar() {
@@ -11,7 +12,10 @@ export function FilterBar() {
   if (!data) return null;
 
   const totalSelected =
-    f.creators.length + f.formats.length + f.campaigns.length + (f.dateFrom ? 1 : 0);
+    f.creators.length +
+    f.formats.length +
+    f.campaigns.length +
+    (f.dateFrom || f.dateTo ? 1 : 0);
 
   return (
     <div className="bg-white border-b border-surface-border px-4 md:px-8 py-3 flex items-center gap-2 md:gap-3 overflow-x-auto">
@@ -42,6 +46,13 @@ export function FilterBar() {
           options={data.creators}
           selected={f.creators}
           onToggle={f.toggleCreator}
+        />
+        <DateRangeFilter
+          from={f.dateFrom}
+          to={f.dateTo}
+          min={data.dateRange.min}
+          max={data.dateRange.max}
+          onChange={f.setDateRange}
         />
       </div>
 
